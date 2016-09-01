@@ -20,10 +20,11 @@ Installing the prototype:
    - Import the directory 'monitorLambda' as a Java Project inside Eclipse
      (however it is independent of any Eclipse underlying API)
    - Configure the Java project properties (right-click on monitorLambda > Properties)
-         1.  Set Java Compiler to JavaSE-1.8
-         2. Set Java Build path:
-              * Add DSProfile (dsprofile_2.11-0.4.0.jar available in the project's directory 'libs')
-              * Add Scala library (scala-library.jar available in the project's directory 'libs')
+  
+       * Set Java Compiler to JavaSE-1.8
+       * Set Java Build path:
+           * Add DSProfile (dsprofile_2.11-0.4.0.jar available in the project's directory 'libs')
+           * Add Scala library (scala-library.jar available in the project's directory 'libs')
 
 Run the tests listed in the paper:
 =================================
