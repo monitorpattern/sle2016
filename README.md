@@ -15,12 +15,13 @@ Installing the prototype:
   The easiest way to install and test the paper's code is to do it within Eclipse.
   However it is independent of any Eclipse underlying technology, so it can be as well run
   in command line with proper classpath configuration. We describe the eclipse way here.
-     - run Eclipse
-     - import the directory 'monitorLambda' as a Java Project inside Eclipse
-       (however it is independent of any Eclipse underlying API)
-     - Configure the Java project properties (right-click on monitorLambda > Properties)
-         (i)  Set Java Compiler to JavaSE-1.8
-         (ii) Set Java Build path:
+  
+   - Run Eclipse
+   - Import the directory 'monitorLambda' as a Java Project inside Eclipse
+     (however it is independent of any Eclipse underlying API)
+   - Configure the Java project properties (right-click on monitorLambda > Properties)
+         1.  Set Java Compiler to JavaSE-1.8
+         2. Set Java Build path:
               * Add DSProfile (dsprofile_2.11-0.4.0.jar available in the project's directory 'libs')
               * Add Scala library (scala-library.jar available in the project's directory 'libs')
 
