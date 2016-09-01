@@ -2,7 +2,6 @@
 *.todo
 *.tokens
 *.properties
-*.jar
 plugin.xml
 lib
 bin

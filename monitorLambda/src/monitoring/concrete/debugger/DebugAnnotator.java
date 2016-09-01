@@ -17,7 +17,7 @@ import lambda.ast.Variable;
 /**
  * This is only a proof-of-concept annotator : Expressions of letrec
  * abstractions are uncompletely defined (e.g., case where several abstractions
- * are defined in a letrec : each single argument need to be reported in the
+ * are defined in a letrec : each single argument needs to be reported in the
  * LDebug annotation of the expressions of letrec abstractions.
  * Probably memory-consuming.
  */
@@ -35,15 +35,17 @@ public class DebugAnnotator implements ILambdaVisitor<ProgramPointElement> {
 	public ProgramPointElement visit(Abstraction aNode) {
 		ProgramPointElement dExp = aNode.getExp().accept(this);
 		aNode.setExp(dExp);
-		// FIXME :-( - very-quick-and-super-dirty setting of an abstraction
-		// belonging to a letrec definition.q
+		// FIXME quick-and-dirty setting of an abstraction
+		// belonging to a letrec definition.
 		if (!letrecNames.isEmpty()) {
 			List<String> args = new ArrayList<String>();
 			args.add(aNode.getArg().getIname());
 			String funName = letrecNames.pop();
-			DebugAnnotation ann = new DebugAnnotation(funName, args, new ArrayList<String>());
+			List<String> lvars = new ArrayList<String>();
+			// TODO: collect localvars in a pass - there is not let construct, so local vars are actually always function names.
+			lvars.add(funName);
+			DebugAnnotation ann = new DebugAnnotation(funName, args, lvars);
 			dExp.getLink().setAnnotationAST(ann);
-			// TODO: collect localvars in a pass
 		}
 		return new ProgramPointElement(aNode, debugger);
 	}

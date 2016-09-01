@@ -9,7 +9,7 @@ import monitoring.framework.LeafMonitor;
 public class LeafCollector extends LeafMonitor {
 
 	public LeafCollector() {
-		this.state = new CollectorState();
+		this.state = new CollectorState<DenotableValue>();
 	}
 
 	@Override

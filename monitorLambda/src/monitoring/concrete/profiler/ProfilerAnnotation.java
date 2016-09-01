@@ -13,4 +13,9 @@ public class ProfilerAnnotation extends AbstractAnnotation {
 	public String getSymbol() {
 		return symbol;
 	}
+	
+	@Override
+	public String toString() {
+		return symbol;
+	}
 }

@@ -13,11 +13,8 @@ import monitoring.framework.AbstractAnnotation;
 import monitoring.framework.IConfiguration;
 import monitoring.framework.LeafMonitor;
 
-// TODO : Annotate "breakable" program points in the example.
-
 public class LeafDebugger extends LeafMonitor {
 
-	/* This is not for debug state */
 	Scanner in;
 	public Boolean resume;
 	private DebugState debugState;
@@ -28,13 +25,11 @@ public class LeafDebugger extends LeafMonitor {
 		in.useDelimiter( "\\s+");
 	}
 	
-	/**
-	 * ... */
 	@Override
 	public void pre(Expression aNode, AbstractAnnotation annotation, IConfiguration context) {
 		DebugAnnotation ann = (DebugAnnotation) annotation;
 		DebugState state = (DebugState) getState();
-		if (ann.label == Label.LBreak) { // FIXME horrible hack
+		if (ann.label == Label.LBreak) {
 			if (state.isSingleStep()) {
 				state.setIsSingleStep(false); // Unbreak (until next time)
 				getCmd(aNode, context);
@@ -64,7 +59,7 @@ public class LeafDebugger extends LeafMonitor {
 			((DebugState)state).getFrameStack().pop();
 			// getCmd needs to be called in post debug because it was not captured in a continuation
 			// during the pre- call.
-			getCmd(aNode, context);
+			//getCmd(aNode, context);
 		}
 	}
 
@@ -147,6 +142,7 @@ public class LeafDebugger extends LeafMonitor {
 				Frame frame = state.getFrameStack().peek();
 				writeVars("Formal ", frame.getFormalArgs(), config);
 				writeVars("Local ", frame.getLocalVars(), config);
+				writeUsr("\n");
 			}
 			else
 				writeUsr("Stack is empty\n");
@@ -154,9 +150,11 @@ public class LeafDebugger extends LeafMonitor {
 		}
 
 		else if (cmd.compareTo("showStack") == 0) { // "where" (am I)
+			writeUsr("[");
 			for (Frame frame : state.getFrameStack()) {
 				writeUsr(frame.toString() + "\n");
 			}
+			writeUsr("]\n");
 			setResume(false);
 		}
 

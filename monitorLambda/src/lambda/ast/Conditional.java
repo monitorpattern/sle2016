@@ -7,6 +7,8 @@ public class Conditional extends Expression
 	Expression exp2;
 	Expression exp3;
 	
+	public Conditional() {}
+	
 	public Conditional(Expression e1, Expression e2, Expression e3) {
 		exp1 = e1; exp2 = e2; exp3 = e3;
 	}
@@ -42,6 +44,6 @@ public class Conditional extends Expression
 
 	@Override
 	public String toString() {
-		return "if " + exp1 + " then " + exp2 + " else " + exp3 ;
+		return "if " + exp1 + "\n   then " + exp2 + "\n   else " + exp3 ;
 	}
 }
