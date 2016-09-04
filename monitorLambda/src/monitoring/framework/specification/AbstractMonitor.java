@@ -1,4 +1,4 @@
-package monitoring.framework;
+package monitoring.framework.specification;
 
 import lambda.ast.Expression;
 import lambda.domains.DenotableValue;

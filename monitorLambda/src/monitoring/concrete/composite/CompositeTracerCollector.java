@@ -1,8 +1,8 @@
-package monitoring.composite;
+package monitoring.concrete.composite;
 
 import monitoring.concrete.collector.LeafCollector;
 import monitoring.concrete.tracer.LeafTracer;
-import monitoring.framework.CompositeMonitor;
+import monitoring.framework.specification.CompositeMonitor;
 
 public class CompositeTracerCollector extends CompositeMonitor {
 	private LeafTracer tracer;

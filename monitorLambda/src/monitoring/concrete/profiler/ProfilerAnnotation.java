@@ -1,6 +1,6 @@
 package monitoring.concrete.profiler;
 
-import monitoring.framework.AbstractAnnotation;
+import monitoring.framework.specification.AbstractAnnotation;
 
 public class ProfilerAnnotation extends AbstractAnnotation {
 	

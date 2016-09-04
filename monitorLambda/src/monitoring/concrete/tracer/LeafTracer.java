@@ -4,9 +4,9 @@ import lambda.ast.Expression;
 import lambda.domains.Configuration;
 import lambda.domains.DenotableValue;
 import lambda.domains.FunctionEnvironment;
-import monitoring.framework.AbstractAnnotation;
-import monitoring.framework.IConfiguration;
-import monitoring.framework.LeafMonitor;
+import monitoring.framework.specification.AbstractAnnotation;
+import monitoring.framework.specification.IConfiguration;
+import monitoring.framework.specification.LeafMonitor;
 
 public class LeafTracer extends LeafMonitor {
 	

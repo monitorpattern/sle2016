@@ -2,7 +2,7 @@ package lambda.domains;
 
 import java.util.Stack;
 
-import monitoring.framework.IConfiguration;
+import monitoring.framework.specification.IConfiguration;
 
 public class Configuration implements IConfiguration {
 

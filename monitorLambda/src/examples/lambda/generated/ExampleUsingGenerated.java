@@ -12,7 +12,7 @@ import lambda.ast.Primitive;
 import lambda.ast.Variable;
 import lambda.domains.DenotableValue;
 import monitoring.concrete.dsprofiler.DSProfiler;
-import monitoring.framework.Link;
+import monitoring.framework.specification.MonitorLink;
 
 /**
  * Created by ciprian on 23/05/16.
@@ -59,7 +59,7 @@ public class ExampleUsingGenerated {
     }
 
     public static Expression annotateFactorial(Expression inAST, DSProfiler profiler) {
-        Link link = new Link(profiler);
+        MonitorLink link = new MonitorLink(profiler);
         //decorate the letrec
         Expression outAST = new GenMonitoring.ExpressionDecorator(inAST, link);
 

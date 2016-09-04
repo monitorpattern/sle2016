@@ -1,6 +1,6 @@
 package monitoring.concrete.collector;
 
-import monitoring.framework.AbstractAnnotation;
+import monitoring.framework.specification.AbstractAnnotation;
 
 public class CollectorAnnotation extends AbstractAnnotation {
 	

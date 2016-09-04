@@ -7,11 +7,11 @@ import lambda.ast.Expression;
 import lambda.ast.Letrec;
 import lambda.domains.Configuration;
 import lambda.domains.DenotableValue;
-import monitoring.combine.DecoratedElement;
 import monitoring.concrete.debugger.DebugAnnotation.Label;
-import monitoring.framework.AbstractAnnotation;
-import monitoring.framework.IConfiguration;
-import monitoring.framework.LeafMonitor;
+import monitoring.framework.composition.ExpressionDecorator;
+import monitoring.framework.specification.AbstractAnnotation;
+import monitoring.framework.specification.IConfiguration;
+import monitoring.framework.specification.LeafMonitor;
 
 public class LeafDebugger extends LeafMonitor {
 

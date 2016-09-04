@@ -3,7 +3,7 @@ package monitoring.concrete.profiler;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import monitoring.framework.IMonitorState;
+import monitoring.framework.specification.IMonitorState;
 
 public class ProfilerState implements IMonitorState {
 

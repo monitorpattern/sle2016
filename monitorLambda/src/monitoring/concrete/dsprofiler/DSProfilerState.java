@@ -2,7 +2,7 @@ package monitoring.concrete.dsprofiler;
 
 import java.util.Stack;
 
-import monitoring.framework.IMonitorState;
+import monitoring.framework.specification.IMonitorState;
 
 public class DSProfilerState implements IMonitorState {
 	

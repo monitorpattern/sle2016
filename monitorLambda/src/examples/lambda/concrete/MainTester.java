@@ -9,12 +9,10 @@ import lambda.ast.Letrec;
 import lambda.ast.Primitive;
 import lambda.ast.Variable;
 import lambda.domains.DenotableValue;
-import monitoring.combine.DecoratedElement;
-import monitoring.combine.MonitoringLambdaValuation;
-import monitoring.composite.CompositeTracerCollector;
 import monitoring.concrete.collector.CollectorAnnotation;
 import monitoring.concrete.collector.CollectorState;
 import monitoring.concrete.collector.LeafCollector;
+import monitoring.concrete.composite.CompositeTracerCollector;
 import monitoring.concrete.debugger.DebugAnnotator;
 import monitoring.concrete.debugger.DebugState;
 import monitoring.concrete.debugger.LeafDebugger;
@@ -25,9 +23,11 @@ import monitoring.concrete.profiler.ProfilerState;
 import monitoring.concrete.tracer.LeafTracer;
 import monitoring.concrete.tracer.TracerAnnotation;
 import monitoring.concrete.tracer.TracerState;
-import monitoring.framework.CompositeState;
-import monitoring.framework.LeafMonitor;
-import monitoring.framework.Link;
+import monitoring.framework.composition.ExpressionDecorator;
+import monitoring.framework.composition.LambdaMonitoringEvaluator;
+import monitoring.framework.specification.CompositeState;
+import monitoring.framework.specification.LeafMonitor;
+import monitoring.framework.specification.MonitorLink;
 
 
 /**
@@ -60,14 +60,14 @@ public class MainTester {
 		cond.setExp3(exp3);
 
 		// Annotation added to the test "x = 0"
-		DecoratedElement decoratedNodeTest = new DecoratedElement();
-		decoratedNodeTest.setLink(new Link(new ProfilerAnnotation("#test"), profiler));
+		ExpressionDecorator decoratedNodeTest = new ExpressionDecorator();
+		decoratedNodeTest.setLink(new MonitorLink(new ProfilerAnnotation("#test"), profiler));
 		decoratedNodeTest.setOriginalElement(exp1);
 		cond.setExp1(decoratedNodeTest);
 		
 		// Annotation added to the application app = "fac ( x - 1 )"
-		DecoratedElement decoratedNodeApp = new DecoratedElement();
-		decoratedNodeApp.setLink(new Link(new ProfilerAnnotation("#fac"), profiler));
+		ExpressionDecorator decoratedNodeApp = new ExpressionDecorator();
+		decoratedNodeApp.setLink(new MonitorLink(new ProfilerAnnotation("#fac"), profiler));
 		decoratedNodeApp.setOriginalElement(app);
 		exp3.setRhs(decoratedNodeApp);
 		
@@ -100,13 +100,13 @@ public class MainTester {
 		Primitive exp3 = new Primitive("x", "*", app);
 		
 		// Annotation added to the test "x = 0"
-		DecoratedElement decoratedExp1 = new DecoratedElement();
-		decoratedExp1.setLink(new Link(new CollectorAnnotation("#test"), collector));
+		ExpressionDecorator decoratedExp1 = new ExpressionDecorator();
+		decoratedExp1.setLink(new MonitorLink(new CollectorAnnotation("#test"), collector));
 		decoratedExp1.setOriginalElement(exp1);
 		
 		// Annotation added to the application app = "fac ( x - 1 )"
-		DecoratedElement decoratedNodeApp = new DecoratedElement();
-		decoratedNodeApp.setLink(new Link(new CollectorAnnotation("#fac"), collector));
+		ExpressionDecorator decoratedNodeApp = new ExpressionDecorator();
+		decoratedNodeApp.setLink(new MonitorLink(new CollectorAnnotation("#fac"), collector));
 		decoratedNodeApp.setOriginalElement(app);
 		exp3.setRhs(decoratedNodeApp);
 		
@@ -227,7 +227,7 @@ public class MainTester {
 	 */
 	private static ProfilerState evalFac5_with_profiler(LeafProfiler profiler) {
 		Letrec ast = buildFac5_for_profiler(profiler); 
-		DenotableValue result = ast.accept(new MonitoringLambdaValuation());
+		DenotableValue result = ast.accept(new LambdaMonitoringEvaluator());
 		System.out.println(">>> RESULT = " + result);
 		return (ProfilerState) profiler.getState();
 	}
@@ -241,7 +241,7 @@ public class MainTester {
 	private static CollectorState<DenotableValue> evalFac6_for_collector(LeafCollector collector) {
 		
 		Letrec ast = buildFac6_for_collector(collector); 
-		DenotableValue result = ast.accept(new MonitoringLambdaValuation());
+		DenotableValue result = ast.accept(new LambdaMonitoringEvaluator());
 		System.out.println(">>> RESULT = " + result);
 		return (CollectorState<DenotableValue>) collector.getState();
 	}
@@ -255,11 +255,11 @@ public class MainTester {
 		tracer.setState(new TracerState());
 		Letrec ast = buildNotTailRecursiveFactorial(4); 
 		
-		DecoratedElement multDecoratedNode = new DecoratedElement();
-		DecoratedElement facDecoratedNode = new DecoratedElement();
+		ExpressionDecorator multDecoratedNode = new ExpressionDecorator();
+		ExpressionDecorator facDecoratedNode = new ExpressionDecorator();
 		
 		/* Annotate application of mult to x and y*/
-		multDecoratedNode.setLink(new Link(new TracerAnnotation("#mult", new String[] { "x", "y" }), tracer));
+		multDecoratedNode.setLink(new MonitorLink(new TracerAnnotation("#mult", new String[] { "x", "y" }), tracer));
 		Abstraction multParentNode = ((Abstraction)((Abstraction)(ast.getAbstraction())).getExp());
 		Expression multNode  = multParentNode.getExp();
 		// ast binding abstraction exp exp1: decoratedNode.
@@ -270,10 +270,10 @@ public class MainTester {
 		Abstraction facParentNode = ((Letrec)ast.getExp()).getAbstraction();
 		Expression facNode = facParentNode.getExp();
 		
-		facDecoratedNode.setLink(new Link(new TracerAnnotation("#fac", new String[] { "x" }), tracer));
+		facDecoratedNode.setLink(new MonitorLink(new TracerAnnotation("#fac", new String[] { "x" }), tracer));
 		facDecoratedNode.setOriginalElement(facNode);
 		facParentNode.setExp(facDecoratedNode);		
-		DenotableValue result = ast.accept(new MonitoringLambdaValuation());
+		DenotableValue result = ast.accept(new LambdaMonitoringEvaluator());
 		System.out.println(">>> RESULT = " + result);
 		return (TracerState) tracer.getState();
 	}
@@ -287,11 +287,11 @@ public class MainTester {
 		tracer.setState(new TracerState());
 		Letrec ast = buildTailRecursiveFactorial(5); 
 		
-		DecoratedElement multDecoratedNode = new DecoratedElement();
-		DecoratedElement facDecoratedNode = new DecoratedElement();
+		ExpressionDecorator multDecoratedNode = new ExpressionDecorator();
+		ExpressionDecorator facDecoratedNode = new ExpressionDecorator();
 		
 		/* Annotate application of mult to x and y*/
-		Link link = new Link(new TracerAnnotation("#mult", new String[] { "x", "y" }), tracer);
+		MonitorLink link = new MonitorLink(new TracerAnnotation("#mult", new String[] { "x", "y" }), tracer);
 		multDecoratedNode.setLink(link);
 		Abstraction multParentNode = ((Abstraction)((Abstraction)(ast.getAbstraction())).getExp());
 		Expression multNode  = multParentNode.getExp();
@@ -303,11 +303,11 @@ public class MainTester {
 		Abstraction facParentNode = ((Abstraction)((Letrec)ast.getExp()).getAbstraction().getExp());
 		Expression facNode = facParentNode.getExp();
 		
-		facDecoratedNode.setLink(new Link(new TracerAnnotation("#fac", new String[] { "x","acc" }), tracer));
+		facDecoratedNode.setLink(new MonitorLink(new TracerAnnotation("#fac", new String[] { "x","acc" }), tracer));
 		facDecoratedNode.setOriginalElement(facNode);
 		facParentNode.setExp(facDecoratedNode);		
 		
-		DenotableValue result = ast.accept(new MonitoringLambdaValuation());
+		DenotableValue result = ast.accept(new LambdaMonitoringEvaluator());
 		System.out.println(">>> RESULT = " + result);
 		return (TracerState) tracer.getState();
 	}
@@ -321,15 +321,15 @@ public class MainTester {
 	private static CompositeState evalTailRecursiveFactorial_for_composite(CompositeTracerCollector composite) {
 		
 		Letrec ast = buildNotTailRecursiveFactorial(5); 
-		MonitoringLambdaValuation eval = new MonitoringLambdaValuation();
+		LambdaMonitoringEvaluator eval = new LambdaMonitoringEvaluator();
 		
-		DecoratedElement decoratedNode = new DecoratedElement();
+		ExpressionDecorator decoratedNode = new ExpressionDecorator();
 		
 		String[] facargs = { "x" };
- 		Link link = new Link(new TracerAnnotation("#fac", facargs), composite.getMonitor(0));
+ 		MonitorLink link = new MonitorLink(new TracerAnnotation("#fac", facargs), composite.getMonitor(0));
 		decoratedNode.setLink(link);
-		Link linkC = new Link(new CollectorAnnotation("#fac"), composite.getMonitor(1));
-		DecoratedElement decoratedNode2 = new DecoratedElement();
+		MonitorLink linkC = new MonitorLink(new CollectorAnnotation("#fac"), composite.getMonitor(1));
+		ExpressionDecorator decoratedNode2 = new ExpressionDecorator();
 		decoratedNode2.setLink(linkC);
 		decoratedNode2.setOriginalElement(decoratedNode);
 		

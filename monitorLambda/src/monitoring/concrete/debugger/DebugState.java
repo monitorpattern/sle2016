@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-import monitoring.framework.IMonitorState;
+import monitoring.framework.specification.IMonitorState;
 
 public class DebugState implements IMonitorState {
 	

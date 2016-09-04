@@ -3,7 +3,7 @@ package monitoring.generator;
 import lambda.ast.Abstraction;
 import lambda.ast.Expression;
 import lambda.ast.ILambdaVisitor;
-import lambda.valuation.LambdaValuation;
+import lambda.valuation.LambdaEvaluator;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class MonitoringSupportGenerator {
         List<Class> targets = new ArrayList<>();
         targets.add(Expression.class);
         targets.add(Abstraction.class);
-        generateFor(targets, ILambdaVisitor.class, LambdaValuation.class);
+        generateFor(targets, ILambdaVisitor.class, LambdaEvaluator.class);
     }
 
     public static <T> void generateFor(List<Class> classes, Class baseVisitor, Class<T> valuation) {

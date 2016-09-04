@@ -1,6 +1,6 @@
 package monitoring.concrete.tracer;
 
-import monitoring.framework.IMonitorState;
+import monitoring.framework.specification.IMonitorState;
 
 public class TracerState implements IMonitorState {
 

@@ -21,7 +21,7 @@ import lambda.domains.FunctionEnvironment;
 import lambda.domains.FunctionValue;
 import lambda.domains.NumberValue;
 
-public class LambdaValuation implements ILambdaVisitor<DenotableValue> {
+public class LambdaEvaluator implements ILambdaVisitor<DenotableValue> {
 
 	
 	Hashtable<String, IntegerMath> primitives;
@@ -43,7 +43,7 @@ public class LambdaValuation implements ILambdaVisitor<DenotableValue> {
         return op.operation(a, b);
     }
     
-    public LambdaValuation() {
+    public LambdaEvaluator() {
     	configuration = new Configuration();
     	configuration.push(new EmptyEnvironment());
 		primitives = new Hashtable<String, IntegerMath>();

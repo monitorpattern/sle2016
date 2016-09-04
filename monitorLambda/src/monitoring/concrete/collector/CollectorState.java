@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import monitoring.framework.IMonitorState;
+import monitoring.framework.specification.IMonitorState;
 
 public class CollectorState<DenotableValue> implements IMonitorState {
 

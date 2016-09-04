@@ -2,21 +2,20 @@ package examples.lambda.generated;
 
 import lambda.ast.Expression;
 import lambda.domains.DenotableValue;
-/* This file was automatically generated on by MonitoringSupportGenerator */
-import monitoring.framework.Link;
+import monitoring.framework.specification.MonitorLink;
 
 public class GenMonitoring {
 
 	public static class ExpressionDecorator extends lambda.ast.Expression {
 		private lambda.ast.Expression originalElement;
-		private Link link;
+		private MonitorLink link;
 		public ExpressionDecorator() {}
-		public ExpressionDecorator(lambda.ast.Expression element, Link link) {
+		public ExpressionDecorator(lambda.ast.Expression element, MonitorLink link) {
 			this.originalElement = element;
 			this.link = link;
 		}
-		public Link getLink() { return link; }
-		public void setLink(Link link) { this.link = link; }
+		public MonitorLink getLink() { return link; }
+		public void setLink(MonitorLink link) { this.link = link; }
 		public lambda.ast.Expression getOriginalElement() { return originalElement; }
 		public void setOriginalElement(lambda.ast.Expression originalElement) { this.originalElement = originalElement; }
 		@Override
@@ -35,14 +34,14 @@ public class GenMonitoring {
 	}
 	public static class AbstractionDecorator extends lambda.ast.Abstraction {
 		private lambda.ast.Abstraction originalElement;
-		private Link link;
+		private MonitorLink link;
 		public AbstractionDecorator() {}
-		public AbstractionDecorator(lambda.ast.Abstraction element, Link link) {
+		public AbstractionDecorator(lambda.ast.Abstraction element, MonitorLink link) {
 			this.originalElement = element;
 			this.link = link;
 		}
-		public Link getLink() { return link; }
-		public void setLink(Link link) { this.link = link; }
+		public MonitorLink getLink() { return link; }
+		public void setLink(MonitorLink link) { this.link = link; }
 		public lambda.ast.Abstraction getOriginalElement() { return originalElement; }
 		public void setOriginalElement(lambda.ast.Abstraction originalElement) { this.originalElement = originalElement; }
 		@Override
@@ -60,19 +59,19 @@ public class GenMonitoring {
 		T visit(AbstractionDecorator aNode);
 	}
 	public static class LambdaValuationMonitoring 
-		 extends lambda.valuation.LambdaValuation
+		 extends lambda.valuation.LambdaEvaluator
 		 implements IAbstractionDecoratorVisitor<lambda.domains.DenotableValue>
 			, IExpressionDecoratorVisitor<lambda.domains.DenotableValue> {
 	
 		public lambda.domains.DenotableValue visit(AbstractionDecorator dNode) {
-			Link link = dNode.getLink();
+			MonitorLink link = dNode.getLink();
 			link.pre(dNode.getOriginalElement(), configuration);
 			lambda.domains.DenotableValue result = dNode.getOriginalElement().accept(this);
 			link.post(dNode.getOriginalElement(), result, configuration);
 			return result;
 		}
 		public lambda.domains.DenotableValue visit(ExpressionDecorator dNode) {
-			Link link = dNode.getLink();
+			MonitorLink link = dNode.getLink();
 			link.pre(dNode.getOriginalElement(), configuration);
 			lambda.domains.DenotableValue result = dNode.getOriginalElement().accept(this);
 			link.post(dNode.getOriginalElement(), result, configuration);

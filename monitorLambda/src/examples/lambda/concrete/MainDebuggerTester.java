@@ -8,11 +8,11 @@ import lambda.ast.Letrec;
 import lambda.ast.Primitive;
 import lambda.ast.Variable;
 import lambda.domains.DenotableValue;
-import monitoring.combine.MonitoringLambdaValuation;
 import monitoring.concrete.debugger.DebugAnnotator;
 import monitoring.concrete.debugger.DebugState;
 import monitoring.concrete.debugger.LeafDebugger;
 import monitoring.concrete.debugger.ProgramPointElement;
+import monitoring.framework.composition.LambdaMonitoringEvaluator;
 
 /**
  * Main class to test a basic debugger following Kishon and Hudak debugger
@@ -106,7 +106,7 @@ public class MainDebuggerTester {
 		System.out.println("Debug on factorial 5:" + dAst.toString_withAnn());
 		System.out.println("Suggestion of input sequences : "
 				+ "break fact | run | showData | showStack | step | step | unbreak fact | run \n");
-		DenotableValue result = dAst.accept(new MonitoringLambdaValuation());
+		DenotableValue result = dAst.accept(new LambdaMonitoringEvaluator());
 		System.out.println("RESULT = " + result);
 		System.out.println("\n -------------- DEBUG-TEST1: END BASIC DEBUGGING --------------");
 		return (DebugState) debugger.getState();
@@ -126,7 +126,7 @@ public class MainDebuggerTester {
 		ProgramPointElement dAst = dAnnotator.visit(ast);
 		System.out.println("\n -------------- DEBUG-TEST2: STARTING BASIC DEBUGGING --------------");
 		System.out.println("Debug on (tail-rec) factorial 3:" + dAst.toString_withAnn());
-		DenotableValue result = dAst.accept(new MonitoringLambdaValuation());
+		DenotableValue result = dAst.accept(new LambdaMonitoringEvaluator());
 		System.out.println("RESULT = " + result);
 		System.out.println("\n -------------- DEBUG-TEST2: STARTING BASIC DEBUGGING --------------");
 		return (DebugState) debugger.getState();

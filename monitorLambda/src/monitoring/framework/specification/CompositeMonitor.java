@@ -1,4 +1,4 @@
-package monitoring.framework;
+package monitoring.framework.specification;
 
 import java.util.ArrayList;
 import java.util.List;

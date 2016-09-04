@@ -1,19 +1,19 @@
-package monitoring.combine;
+package monitoring.framework.composition;
 
 import lambda.ast.Expression;
 import lambda.ast.ILambdaVisitor;
 import lambda.domains.DenotableValue;
-import monitoring.framework.Link;
+import monitoring.framework.specification.MonitorLink;
 
 /** Corresponds to: MonDecorator
  *  Decorated element */
-public class DecoratedElement extends Expression {
+public class ExpressionDecorator extends Expression {
 	
 	protected Expression originalElement;
-	protected Link link;
+	protected MonitorLink link;
 
-	public DecoratedElement() {}
-	public DecoratedElement(Expression element, Link link) {
+	public ExpressionDecorator() {}
+	public ExpressionDecorator(Expression element, MonitorLink link) {
 		this.originalElement = element;
 		this.link = link;
 	}
@@ -22,7 +22,7 @@ public class DecoratedElement extends Expression {
 		return originalElement;
 	}
 	
-	public Link getLink() {
+	public MonitorLink getLink() {
 		return link;
 	}
 
@@ -30,14 +30,14 @@ public class DecoratedElement extends Expression {
 		this.originalElement = originalElement;
 	}
 
-	public void setLink(Link link) {
+	public void setLink(MonitorLink link) {
 		this.link = link;
 	}
 
 	@Override
 	public <T> T accept(ILambdaVisitor<T> visitor) {
-		if (visitor instanceof IDecoratedElementVisitor) {
-			return ((IDecoratedElementVisitor<T>)visitor).visit(this); 
+		if (visitor instanceof IExpressionDecoratorVisitor) {
+			return ((IExpressionDecoratorVisitor<T>)visitor).visit(this); 
 		}
 		else {
 			return getOriginalElement().accept(visitor);

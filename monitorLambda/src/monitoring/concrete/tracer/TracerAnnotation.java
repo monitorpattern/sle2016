@@ -1,6 +1,6 @@
 package monitoring.concrete.tracer;
 
-import monitoring.framework.AbstractAnnotation;
+import monitoring.framework.specification.AbstractAnnotation;
 
 /** aka smalltalk's MonFunctionHeaderAnnotation */
 public class TracerAnnotation extends AbstractAnnotation {

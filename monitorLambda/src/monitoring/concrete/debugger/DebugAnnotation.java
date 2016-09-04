@@ -2,7 +2,7 @@ package monitoring.concrete.debugger;
 
 import java.util.List;
 
-import monitoring.framework.AbstractAnnotation;
+import monitoring.framework.specification.AbstractAnnotation;
 
 public class DebugAnnotation extends AbstractAnnotation {
 

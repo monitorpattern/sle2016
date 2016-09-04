@@ -1,18 +1,18 @@
-package monitoring.framework;
+package monitoring.framework.specification;
 
 import lambda.ast.Expression;
 import lambda.domains.DenotableValue;
 
-public class Link {
+public class MonitorLink {
 	
 	// FIXME
 	AbstractAnnotation annotationAST;
 	AbstractMonitor monitor;
 
-	public Link(AbstractMonitor monitor) {
+	public MonitorLink(AbstractMonitor monitor) {
 		this.monitor = monitor;
 	}
-	public Link(AbstractAnnotation a, AbstractMonitor m) {
+	public MonitorLink(AbstractAnnotation a, AbstractMonitor m) {
 		annotationAST = a;
 		monitor = m;
 	}
