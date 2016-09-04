@@ -2,7 +2,12 @@
 
 Description:
 ============
-  Proof-of-concept implementation of the DSL monitoring pattern.
+  Proof-of-concept Java implementation of the DSL monitoring pattern.
+
+  Important Note: A Smalltalk version of the monitoring pattern is also available, but stored
+  externally from github. You can check it out there:
+
+  http://smalltalkhub.com/#!/~CipT/MonLambda
 
 Recommended versions of software:
 =================================
@@ -14,7 +19,7 @@ Recommended versions of software:
 Installing the prototype:
 =========================
   
-  The easiest way to install and test the paper's code is to do it
+  The easiest way to "install" and test the paper's code is to do it
   within Eclipse.  However it is independent of any Eclipse underlying
   technology, so it can be as well run in command line with proper
   classpath configuration. We describe the eclipse way here.
@@ -37,13 +42,25 @@ Installing the prototype:
            * Add Scala library (scala-library.jar available in the
              project's directory 'libs')
 
-Run the tests listed in the paper:
+Walkthrough: run the tests listed in the paper:
 =================================
 
-  The main program is in MainTester in package
-  'examples.lambda.concrete' (right-click on MainTester.java > Run As
-  > JavaApplication).  It runs without any argument configuration :
-  all available tests are executed sequentially.
+1. Monitors from scratch A main program is in MainTester in package
+  'examples.lambda.concrete':
+  Right-click on MainTester.java > Run As > JavaApplication.
+  It runs without any argument configuration:
+  all available tests are executed sequentially:
+
+    1. A basic profiler
+    2. A basic collector
+    3. A tracer (the one for which the listing was generated in the paper) 
+    4. A simple composite monitor (collector + tracer)
+
+2. Integration of DSProfile
+
+  To test the integration of DSProfile, another main program can be found in the package
+  'monitoring.concrete.dsprofiler' :
+  Right-click on DSExample.java > Run as Java Application.
 
 
 Documentation files
@@ -52,13 +69,12 @@ Documentation files
   Two documentation files describe the structure/content of the
   program, in the monitorLambda/doc directory:
 
-  - content.txt describe the organization of all the Java packages
+  - content.txt: describes the organization of all the Java packages
 
-   - algo.txt sketches the algorithm of the standard interpreter as
+  - algo.txt: sketches the algorithm of the standard interpreter as
      implemented in the LambdaEvaluator class
 
 
-  
 
 Note about the dependencies:
 ---------------------------
