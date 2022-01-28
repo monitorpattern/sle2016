@@ -2,7 +2,8 @@
 
 Description:
 ============
-  Proof-of-concept Java implementation of the DSL monitoring pattern.
+  Proof-of-concept Java implementation of the DSL monitoring pattern. 
+  Common Work of Zoé Drey and Ciprian Teodorov
 
   Important Note: A Smalltalk version of the monitoring pattern is also available, but stored
   externally from github. You can check it out there:
